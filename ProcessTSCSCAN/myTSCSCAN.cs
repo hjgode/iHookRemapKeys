@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 
 using System.IO;
+using System.Resources;
+using System.Reflection;
 
 namespace ProcessTSCSCAN
 {
@@ -17,6 +19,14 @@ namespace ProcessTSCSCAN
             _sFile = sFile;
         }
 
+        /// <summary>
+        /// map a key value VK_xyz (line number in tscscan) to a scancode [and char]    
+        /// </summary>
+        /// <param name="uVKey"></param>
+        /// <param name="uScancode"></param>
+        /// <param name="uCharNew"></param>
+        /// <param name="comment"></param>
+        /// <returns></returns>
         public int mapVKeyToScancode(uint uVKey, uint uScancode, uint uCharNew, string comment)
         {
             int iRes = 0;
@@ -26,11 +36,14 @@ namespace ProcessTSCSCAN
             int listIndex = -1;
             foreach (tscscan t in tscscanList)
             {
-                if (t._CharIn == uVKey)
+                if (t._CharIn == uCharNew) //look for the line for the char we would like to map
                 {
-                    listIndex = tscscanList.IndexOf(t);
-                    tscToChange = t;
-                    break;
+                    listIndex = tscscanList.IndexOf(t); //find the line
+                    if (listIndex != -1)
+                    {
+                        tscToChange = t;
+                        break;
+                    }
                 }
             }
             if (tscToChange == null)
@@ -39,10 +52,10 @@ namespace ProcessTSCSCAN
                 return -1;
             }
 
-            System.Diagnostics.Debug.WriteLine("About to change: [" +uVKey.ToString()+"] " + tscToChange.ToString()+ " at "+listIndex.ToString());
+            System.Diagnostics.Debug.WriteLine("About to change: [" +uCharNew.ToString()+"] " + tscToChange.ToString()+ " at "+listIndex.ToString());
             tscscan tscNew = new tscscan((UInt16)uVKey, (UInt16)uCharNew, (UInt16)uScancode, comment);
 
-            System.Diagnostics.Debug.WriteLine("New tscscan is : [" + uVKey.ToString() + "] " + tscNew.ToString() + " at " + listIndex.ToString());
+            System.Diagnostics.Debug.WriteLine("New tscscan is : [" + uCharNew.ToString() + "] " + tscNew.ToString() + " at " + listIndex.ToString());
             tscscanList[listIndex] = tscNew;
             
             return iRes;
@@ -230,11 +243,12 @@ namespace ProcessTSCSCAN
         {
             if (isCommentOnly)
                 return "// "+this.sComment;
+
             if(this.sComment!=string.Empty)
                 return "0x"+uScanOut.ToString("X4")+" 0x"+uCharOUT.ToString("X2")+" //"+sComment;
             else
                 return "0x" + uScanOut.ToString("X4") + " 0x" + uCharOUT.ToString("X2") + //0x000F
-                    " //input (line): 0x" + uCharIN.ToString("x2")+ //line 0x09
+                    " //input (line): "+uCharIN.ToString()+"(0x" + uCharIN.ToString("x2")+")"+ //line 0x09
                     ", " + VK_Codes.getVK_Name(uCharIN) + // VK_ of 0x09
                     ", output (by scancode): " + ps2scancodes.getVKCode(uScanOut) +
                     ", output char code:" + VK_Codes.getVK_Name(uCharOUT);
@@ -264,6 +278,37 @@ namespace ProcessTSCSCAN
             uScanOut = uScan;
             sComment = s;
             iIdx++;
+        }
+
+        public static int saveDefault(){
+            int iRes = 0;
+            if (System.Windows.Forms.MessageBox.Show("Reset windows/tscscan.txt to default?", "About to restore defaults", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question, System.Windows.Forms.MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.No)
+                return -1;
+            var assembly = Assembly.GetExecutingAssembly();
+            //foreach (string s in assembly.GetManifestResourceNames())
+            //    System.Diagnostics.Debug.WriteLine(s);
+
+            var resourceName = "ProcessTSCSCAN.tscscan.txt";
+            try
+            {
+                using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        string result = reader.ReadToEnd();
+                        using (StreamWriter writer = new StreamWriter(@"\windows\tscscan.txt", false))
+                        {
+                            writer.Write(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Error saving tscscan.txt " + ex.Message);
+                iRes = -2;
+            }
+            return iRes;
         }
     }
 }

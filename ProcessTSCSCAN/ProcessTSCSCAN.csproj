@@ -62,6 +62,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="keybd_xml.cs" />
     <Compile Include="myTSCSCAN.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,10 +79,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ps2scancodes.cs" />
+    <Compile Include="usb-hid-keybd.cs" />
     <Compile Include="VK_Codes.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="tscscan.txt" />
+    <EmbeddedResource Include="tscscan.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="usb-hid_keyboard.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>

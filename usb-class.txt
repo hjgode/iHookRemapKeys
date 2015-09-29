@@ -1,0 +1,173 @@
+0x00	0	Reserved (no event indicated)
+0x01	1	Keyboard ErrorRollOver
+0x02	2	Keyboard POSTFail
+0x03	3	Keyboard ErrorUndefined
+0x04	4	Keyboard a and A
+0x05	5	Keyboard b and B
+0x06	6	Keyboard c and C
+0x07	7	Keyboard d and D
+0x08	8	Keyboard e and E
+0x09	9	Keyboard f and F
+0x0A	10	Keyboard g and G
+0x0B	11	Keyboard h and H
+0x0C	12	Keyboard i and I
+0x0D	13	Keyboard j and J
+0x0E	14	Keyboard k and K
+0x0F	15	Keyboard l and L
+0x10	16	Keyboard m and M
+0x11	17	Keyboard n and N
+0x12	18	Keyboard o and O
+0x13	19	Keyboard p and P
+0x14	20	Keyboard q and Q
+0x15	21	Keyboard r and R
+0x16	22	Keyboard s and S
+0x17	23	Keyboard t and T
+0x18	24	Keyboard u and U
+0x19	25	Keyboard v and V
+0x1A	26	Keyboard w and W
+0x1B	27	Keyboard x and X
+0x1C	28	Keyboard y and Y
+0x1D	29	Keyboard z and Z
+0x1E	30	Keyboard 1 and !
+0x1F	31	Keyboard 2 and @
+0x20	32	Keyboard 3 and #
+0x21	33	Keyboard 4 and $
+0x22	34	Keyboard 5 and %
+0x23	35	Keyboard 6 and ^
+0x24	36	Keyboard 7 and &
+0x25	37	Keyboard 8 and *
+0x26	38	Keyboard 9 and (
+0x27	39	Keyboard 0 and )
+0x28	40	Keyboard Return (ENTER)
+0x29	41	Keyboard ESCAPE
+0x2A	42	Keyboard DELETE (Backspace)
+0x2B	43	Keyboard Tab
+0x2C	44	Keyboard Spacebar
+0x2D	45	Keyboard - and (underscore)
+0x2E	46	Keyboard = and +
+0x2F	47	Keyboard [ and {
+0x30	48	Keyboard ] and }
+0x31	49	Keyboard \ and |
+0x32	50	Keyboard Non-US # and ~
+0x33	51	"Keyboard ; and :"
+0x34	52	"Keyboard ' and """
+0x35	53	Keyboard Grave Accent and Tilde
+0x36	54	Keyboard, and <
+0x37	55	Keyboard . and >
+0x38	56	Keyboard / and ?
+0x39	57	Keyboard Caps Lock
+0x3A	58	Keyboard F1
+0x3B	59	Keyboard F2
+0x3C	60	Keyboard F3
+0x3D	61	Keyboard F4
+0x3E	62	Keyboard F5
+0x3F	63	Keyboard F6
+0x40	64	Keyboard F7
+0x41	65	Keyboard F8
+0x42	66	Keyboard F9
+0x43	67	Keyboard F10
+0x44	68	Keyboard F11
+0x45	69	Keyboard F12
+0x46	70	Keyboard PrintScreen
+0x47	71	Keyboard Scroll Lock
+0x48	72	Keyboard Pause
+0x49	73	Keyboard Insert
+0x4A	74	Keyboard Home
+0x4B	75	Keyboard PageUp
+0x4C	76	Keyboard Delete Forward
+0x4D	77	Keyboard End
+0x4E	78	Keyboard PageDown
+0x4F	79	Keyboard RightArrow
+0x50	80	Keyboard LeftArrow
+0x51	81	Keyboard DownArrow
+0x52	82	Keyboard UpArrow
+0x53	83	Keypad Num Lock and Clear
+0x54	84	Keypad /
+0x55	85	Keypad *
+0x56	86	Keypad -
+0x57	87	Keypad +
+0x58	88	Keypad ENTER
+0x59	89	Keypad 1 and End
+0x5A	90	Keypad 2 and Down Arrow
+0x5B	91	Keypad 3 and PageDn
+0x5C	92	Keypad 4 and Left Arrow
+0x5D	93	Keypad 5
+0x5E	94	Keypad 6 and Right Arrow
+0x5F	95	Keypad 7 and Home
+0x60	96	Keypad 8 and Up Arrow
+0x61	97	Keypad 9 and PageUp
+0x62	98	Keypad 0 and Insert
+0x63	99	Keypad . and Delete
+0x64	100	Keyboard Non-US \ and |
+0x65	101	Keyboard Application
+0x66	102	Keyboard Power
+0x67	103	Keypad =
+0x68	104	Keyboard F13
+0x69	105	Keyboard F14
+0x6A	106	Keyboard F15
+0x6B	107	Keyboard F16
+0x6C	108	Keyboard F17
+0x6D	109	Keyboard F18
+0x6E	110	Keyboard F19
+0x6F	111	Keyboard F20
+0x70	112	Keyboard F21
+0x71	113	Keyboard F22
+0x72	114	Keyboard F23
+0x73	115	Keyboard F24
+0x74	116	Keyboard Execute
+0x75	117	Keyboard Help
+0x76	118	Keyboard Menu
+0x77	119	Keyboard Select
+0x78	120	Keyboard Stop
+0x79	121	Keyboard Again
+0x7A	122	Keyboard Undo
+0x7B	123	Keyboard Cut
+0x7C	124	Keyboard Copy
+0x7D	125	Keyboard Paste
+0x7E	126	Keyboard Find
+0x7F	127	Keyboard Mute
+0x80	128	Keyboard Volume Up
+0x81	129	Keyboard Volume Down
+0x82	130	Keyboard Locking Caps Lock
+0x83	131	Keyboard Locking Num Lock
+0x84	132	Keyboard Locking Scroll Lock
+0x85	133	Keypad Comma
+0x86	134	Keypad Equal Sign
+0x87	135	Keyboard International1
+0x88	136	Keyboard International2
+0x89	137	Keyboard International3
+0x8A	138	Keyboard International4
+0x8B	139	Keyboard International5
+0x8C	140	Keyboard International6
+0x8D	141	Keyboard International7
+0x8E	142	Keyboard International8
+0x8F	143	Keyboard International9
+0x90	144	Keyboard LANG1
+0x91	145	Keyboard LANG2
+0x92	146	Keyboard LANG3
+0x93	147	Keyboard LANG4
+0x94	148	Keyboard LANG5
+0x95	149	Keyboard LANG6
+0x96	150	Keyboard LANG7
+0x97	151	Keyboard LANG8
+0x98	152	Keyboard LANG9
+0x99	153	Keyboard Alternate Erase
+0x9A	154	Keyboard SysReq/Attention
+0x9B	155	Keyboard Cancel
+0x9C	156	Keyboard Clear
+0x9D	157	Keyboard Prior
+0x9E	158	Keyboard Return
+0x9F	159	Keyboard Separator
+0xA0	160	Keyboard Out
+0xA1	161	Keyboard Oper
+0xA2	162	Keyboard Clear/Again
+0xA3	163	Keyboard CrSel/Props
+0xA4	164	Keyboard ExSel
+0xE0	224	Keyboard LeftControl
+0xE1	225	Keyboard LeftShift
+0xE2	226	Keyboard LeftAlt
+0xE3	227	Keyboard Left GUI
+0xE4	228	Keyboard RightControl
+0xE5	229	Keyboard RightShift
+0xE6	230	Keyboard RightAlt
+0xE7	231	Keyboard Right GUI
