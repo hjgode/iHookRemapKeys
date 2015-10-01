@@ -23,8 +23,8 @@
 #include <windows.h>
 #include <commctrl.h>
 
-#include <aygshell.h>
-#pragma comment(lib, "aygshell.lib") 
+//#include <aygshell.h>
+//#pragma comment(lib, "aygshell.lib") 
 
 
 // Windows Header Files:

@@ -47,6 +47,7 @@ namespace ProcessTSCSCAN
             // then the char value 227 (not printable) will issue the F1 scancode
             //         org          new             new         org      scan code
             //         VK_          VK_             scancode    VK_      =for char in
+            //         org. line!   new line
 	        new tscmap(0x70,        0xE3,           0x3B),	    //F1	 F1=227		    undef		VK_F1       0x70
 	        new tscmap(0x71,        0xE4,           0x3C),	    //F2	 F2=228		    undef
 	        new tscmap(0x72,        0xE6,           0x3D),	    //F3	 F3=230		    undef

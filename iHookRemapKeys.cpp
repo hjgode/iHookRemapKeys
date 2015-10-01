@@ -6,9 +6,12 @@
 #include "hooks.h"
 #include "registry.h"
 
+EXTERN_C HWND GetForegroundKeyboardTarget();
+
 #pragma message( "Compiling " __FILE__ )
 
-TCHAR szAppName[] = L"iHookRemapKeys_v0.0.1";
+TCHAR szAppName[] = L"iHookRemapKeys_v0.0.2";
+#pragma comment (user, "iHookRemapKeys_v0.0.2 (c)hjgode 2016" __TIME__)
 
 #define MAX_LOADSTRING 100
 
@@ -24,32 +27,24 @@ TCHAR* regKeys = L"SOFTWARE\\Intermec\\iHook3Keymap\\keys";
 /*
 			[HKEY_LOCAL_MACHINE\SOFTWARE\Intermec\iHook3Keymap]
 			"ForwardKey"=hex:0
+			"TargetWinClass"="TSSHELLWND"
+			"TargetWinText"=""
 			[HKEY_LOCAL_MACHINE\SOFTWARE\Intermec\iHook3Keymap\keys]
-			"VKin0"=hex:70
-			"VKout0"=hex:e6
-			"VKin1"=hex:70
-			"VKout1"=hex:e6
+			;names = VKEY to look for and Value = CHAR to send?
+			"112"=hex:F1
+			"113"=hex:F2
+			"114"=hex:F3
+			"115"=hex:F4
 */
+
+TCHAR g_TargetWinClass[MAX_PATH]; // L"TSSHELLWND"
+TCHAR g_TargetWinText[MAX_PATH];  // NULL
+
 typedef struct {
 	DWORD vkey;
 	DWORD scan;
 }MYKEYSTRUCT;
-/*
-MYKEYSTRUCT g_myMap[]={
-	{0xF6, 0x00},	//F1 0x70->0xF6	0x3B},scancode=0x3b	#define VK_ATTN           0xF6
-	{0xF7, 0x00},	//F2			0x3C},#define VK_CRSEL          0xF7
-	{0xF8, 0x00},	//F3			0x3D},#define VK_EXSEL          0xF8
-	{0xF9, 0x00},	//F4			0x3E},#define VK_EREOF          0xF9
-	{0xFA, 0x00},	//F5			0x3F},#define VK_PLAY           0xFA
-	{0xFB, 0x00},	//F6			0x40},#define VK_ZOOM           0xFB
-	{0xFC, 0x00},	//F7			0x41},#define VK_NONAME         0xFC
-	{0xFD, 0x00},	//F8			0x42},#define VK_PA1            0xFD
-	{0xFE, 0x00},	//F9			0x43},#define VK_OEM_CLEAR      0xFE
-	{0xA6, 0x00},	//F10			0x44},#define VK_BROWSER_BACK                  0xA6
-	{0xA7, 0x00},	//F11			0x57},#define VK_BROWSER_FORWARD               0xA7
-	{0xA8, 0x00},	//F12			0x58},#define VK_BROWSER_REFRESH               0xA8
-};
-*/
+
 //CK_ value to use and scancode to send (if any)
 MYKEYSTRUCT g_myMap[]={
 	//char scan		maps	 decimal	VK_ name	original	hex
@@ -75,6 +70,30 @@ MYKEYSTRUCT g_myMap[]={
 	{0x9E, 0x00},	//F20	 F20=158	VK_F20            0x83
 };
 
+//maps F-Key scancodes to CHAR message
+byte charMap[]={
+	0xF1,	//	0x70 (VK_F1) -> 241 , 0x70-0x70
+	0xF2,	//	0x70 (VK_F2) -> 242 , 0x71
+	0xF3,	//	0x70 (VK_F3) -> 243 , 0x72
+	0xF4,	//	0x70 (VK_F4) -> 244 , 0x73
+	0xF5,	//	0x70 (VK_F5) -> 245 , 0x74
+	0xF6,	//	0x70 (VK_F6) -> 246 , 0x75
+	0xF7,	//	0x70 (VK_F7) -> 247 , 0x76
+	0xF8,	//	0x70 (VK_F8) -> 248 , 0x77
+	0xF9,	//	0x70 (VK_F9) -> 249 , 0x78
+	0xFA,	//	0x70 (VK_F10) -> 250 , 0x79
+	0xFB,	//	0x70 (VK_F11) -> 251 , 0x7A
+	0xFC,	//	0x70 (VK_F12) -> 252 , 0x7B
+/*	0xFD,	//	0x70 -> 241
+	0xFE,	//	0x70 -> 241
+	0xFF,	//	0x70 -> 241
+	0xE0,	//	0x70 -> 241
+	0xF1,	//	0x70 -> 241
+	0xF1,	//	0x70 -> 241
+	0xF1,	//	0x70 -> 241
+	0xF1,	//	0x70 -> 241 */
+};
+
 //global to hold keycodes and there replacements
 typedef struct {
 	byte VKkeyCodeIn;
@@ -84,8 +103,10 @@ static hookmap kMap[24];
 
 NOTIFYICONDATA nid;
 //
+HICON g_hIcon[3];
 void ShowIcon(HWND hWnd, HINSTANCE hInst);
 void RemoveIcon(HWND hWnd);
+void ChangeIcon(int idIcon);
 
 // Forward declarations of functions included in this code module:
 ATOM			MyRegisterClass(HINSTANCE, LPTSTR);
@@ -110,6 +131,9 @@ void WriteReg();
 //use 1 for EVENT and 0 for POST
 #define USE_POST_OR_EVENT 0
 
+//use char messages only
+#define USE_CHAR_ONLY
+
 TCHAR* g_szMyEventDOWN = L"MyEventDOWN";
 TCHAR* g_szMyEventUP = L"MyEventUP";
 HANDLE g_hMyEventDOWN = NULL;
@@ -124,9 +148,57 @@ void Add2Log(TCHAR* msg, ...){
 	;
 }
 
-HWND getTargetWindow(){
+void ChangeIcon(int idIcon)
+{
+//    NOTIFYICONDATA nid;
+    int nIconID=1;
+    nid.cbSize = sizeof (NOTIFYICONDATA);
+    //nid.hWnd = hWnd;
+    //nid.uID = idIcon;//	nIconID;
+    //nid.uFlags = NIF_ICON | NIF_MESSAGE;   // NIF_TIP not supported
+    //nid.uCallbackMessage = MYMSG_TASKBARNOTIFY;
+    nid.hIcon = g_hIcon[idIcon];	// (HICON)LoadImage (g_hInst, MAKEINTRESOURCE (ID_ICON), IMAGE_ICON, 16,16,0);
+    //nid.szTip[0] = '\0';
+
+    BOOL r = Shell_NotifyIcon (NIM_MODIFY, &nid);
+	if(!r){
+		DEBUGMSG(1 ,(L"Could not change taskbar icon. LastError=%i\r\n", GetLastError() ));
+	}
+}
+void RemoveIcon(HWND hWnd)
+{
+	NOTIFYICONDATA nid;
+
+    memset (&nid, 0, sizeof nid);
+    nid.cbSize = sizeof (NOTIFYICONDATA);
+    nid.hWnd = hWnd;
+    nid.uID = 1;
+
+    Shell_NotifyIcon (NIM_DELETE, &nid);
+
+}
+
+HWND getTargetWindow(int *result){
 //	return GetActiveWindow();
-	return GetForegroundWindow();
+	*result=0;
+	HWND hwndTarget=NULL;
+	if(wcslen(g_TargetWinClass)>0 && wcslen(g_TargetWinText)>0)
+		hwndTarget = FindWindow(g_TargetWinClass, g_TargetWinText); 
+	else if (wcslen(g_TargetWinClass)>0 && wcslen(g_TargetWinText)==0)
+		hwndTarget = FindWindow(g_TargetWinClass, NULL);
+	else if (wcslen(g_TargetWinClass)==0 && wcslen(g_TargetWinText)>0)
+		hwndTarget = FindWindow(NULL, g_TargetWinText); 
+	else{
+		*result=-1; //no Class and no Text?
+		return NULL;
+	}
+	HWND hwndForeground = GetForegroundWindow();
+	if(hwndForeground!=hwndTarget){
+		*result=1;
+		return NULL;
+	}
+	*result=2;
+	return hwndTarget;// GetForegroundWindow();
 }
 
 //
@@ -159,10 +231,11 @@ __declspec(dllexport) LRESULT CALLBACK g_LLKeyboardHookCallback(
 	if (nCode == iActOn) 
 	{ 
 		PKBDLLHOOKSTRUCT pkbhData = (PKBDLLHOOKSTRUCT)lParam;
-		HWND hwndTarget=getTargetWindow();//FindWindow(L"KeyTest3AK",L"KeyTest3AK");
-		if(hwndTarget==NULL)	// if IE is not loaded or not in foreground or browser window not found
+		HWND hwndTarget=getTargetWindow(&iResult);//FindWindow(L"KeyTest3AK",L"KeyTest3AK");
+		if(hwndTarget==NULL){	// if IE is not loaded or not in foreground or browser window not found
+			DEBUGMSG(1,(L"Target window not found of not Foreground!\n"));
 			return CallNextHookEx(g_hInstalledLLKBDhook, nCode, wParam, lParam);
-
+		}
 #if USE_POST_OR_EVENT == 1
 		//is an event set, then do not process again!
 		DWORD dwWait = WaitForMultipleObjects(2, g_hmyEvents, false, 0);
@@ -186,6 +259,30 @@ __declspec(dllexport) LRESULT CALLBACK g_LLKeyboardHookCallback(
 				break;
 		}
 #endif
+		//################## CHAR ONLY START ################
+#ifdef USE_CHAR_ONLY
+		if(pkbhData->vkCode >= VK_F1 && pkbhData->vkCode <=VK_F12){	//map F1 to F12 to 
+			
+			DWORD newVKEY = g_myMap[pkbhData->vkCode-0x70].vkey;	//wParam
+			DWORD newCode = g_myMap[pkbhData->vkCode-0x70].scan;
+			DWORD newLParam = (lParam & 0xFF00FFFF)| g_myMap[pkbhData->vkCode-0x70].scan; //mask scancode and set new one
+
+			DEBUGMSG(1,(L"hook for key 0x%08x mapped to 0x%08x...\n", pkbhData->vkCode, charMap[pkbhData->vkCode-0x70]));
+			if(processed_key==false){
+				if (wParam == WM_KEYUP)
+				{
+					//synthesize a WM_CHAR
+					DEBUGMSG(1,(L"sendMessage WMCHAR 0x%08x to 0x%08x, lParam=0x%08x...\n", charMap[pkbhData->vkCode-0x70], hwndTarget, lParam));
+					PostMessage(GetForegroundKeyboardTarget(), WM_CHAR, charMap[pkbhData->vkCode-0x70], 0);
+					processed_key=true;
+				}
+				else if (wParam == WM_KEYDOWN)
+				{
+					//synthesize a WM_KEYDOWN
+					DEBUGMSG(1,(L"ignoring WM_KEYDOWN 0x%08x to 0x%08x, lParam=0x%08x...\n", charMap[pkbhData->vkCode-0x70], hwndTarget, lParam));
+					processed_key=true;
+#else
+
 		//we are only interested in FKey press/release
 		//if(pkbhData->vkCode >= VK_F1 && pkbhData->vkCode <=VK_F24){
 		//if(pkbhData->vkCode > 0 && pkbhData->vkCode < 255){ //vkCodes are only between 1 and 254
@@ -225,6 +322,8 @@ __declspec(dllexport) LRESULT CALLBACK g_LLKeyboardHookCallback(
 					keybd_event(newVKEY, newCode, pkbhData->flags, pkbhData->dwExtraInfo);
 					//flags are KEYEVENTF_EXTENDEDKEY or KEYEVENTF_KEYUP 
 #endif
+#endif //USE_CHAR_ONLY
+
 				}
 				else if (wParam == WM_CHAR)	//this will never happen
 				{
@@ -351,7 +450,8 @@ BOOL g_HookDeactivate()
 
 void readReg(){
 	int iRes = OpenKey(regMainKey);
-	
+	wsprintf(g_TargetWinClass, L"TSSHELLWND");
+	wsprintf(g_TargetWinText, L"");
 }
 void writeReg(){
 }
@@ -362,34 +462,17 @@ int WINAPI WinMain(HINSTANCE hInstance,
                    int       nCmdShow)
 {
 	MSG msg;
-
+	
+	readReg(); //read globals
 	// Perform application initialization:
 	if (!InitInstance(hInstance, nCmdShow)) 
 	{
 		return FALSE;
 	}
 
+
 	HACCEL hAccelTable;
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_IHOOKREMAPKEYS));
-
-	//Notification icon
-	Add2Log(L"Adding notification icon\r\n", FALSE);
-	HICON hIcon;
-	hIcon=(HICON) LoadImage (g_hInst, MAKEINTRESOURCE (IHOOK_STARTED), IMAGE_ICON, 16,16,0);
-	nid.cbSize = sizeof (NOTIFYICONDATA);
-	nid.hWnd = g_hWnd;
-	nid.uID = 1;
-	nid.uFlags = NIF_ICON | NIF_MESSAGE;
-	// NIF_TIP not supported    
-	nid.uCallbackMessage = MYMSG_TASKBARNOTIFY;
-	nid.hIcon = hIcon;
-	nid.szTip[0] = '\0';
-	BOOL res = Shell_NotifyIcon (NIM_ADD, &nid);
-	if(!res){
-		DEBUGMSG(1 ,(L"Could not add taskbar icon. LastError=%i\r\n", GetLastError() ));
-		Add2Log(L"Could not add taskbar icon. LastError=%i (0x%x)\r\n", GetLastError(), GetLastError());
-	}else
-		Add2Log(L"Taskbar icon added.\r\n", FALSE);
 
 	// Main message loop:
 	while (GetMessage(&msg, NULL, 0, 0)) 
@@ -497,6 +580,31 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	ShowWindow(hWnd, SW_MINIMIZE);
     UpdateWindow(hWnd);
 
+	//Notification icon
+	DEBUGMSG(1,(L"Adding notification icon\r\n", FALSE));
+	HICON hIcon;
+	hIcon=(HICON) LoadImage (g_hInst, MAKEINTRESOURCE (IHOOK_STARTED), IMAGE_ICON, 16,16,0);
+	nid.cbSize = sizeof (NOTIFYICONDATA);
+	nid.hWnd = hWnd;
+	nid.uID = 1;
+	nid.uFlags = NIF_ICON | NIF_MESSAGE;
+	// NIF_TIP not supported    
+	nid.uCallbackMessage = MYMSG_TASKBARNOTIFY;
+	nid.hIcon = hIcon;
+	nid.szTip[0] = '\0';
+	BOOL res = Shell_NotifyIcon (NIM_ADD, &nid);
+	if(!res){
+		DEBUGMSG(1 ,(L"Could not add taskbar icon. LastError=%i\r\n", GetLastError() ));
+		Add2Log(L"Could not add taskbar icon. LastError=%i (0x%x)\r\n", GetLastError(), GetLastError());
+	}else
+		Add2Log(L"Taskbar icon added.\r\n", FALSE);
+
+	//load icon set
+	g_hIcon[0] =(HICON) LoadImage (g_hInst, MAKEINTRESOURCE (IDI_ICON_BAD), IMAGE_ICON, 16,16,0);
+	g_hIcon[1] =(HICON) LoadImage (g_hInst, MAKEINTRESOURCE (IDI_ICON_WARN), IMAGE_ICON, 16,16,0);
+	g_hIcon[2] =(HICON) LoadImage (g_hInst, MAKEINTRESOURCE (IDI_ICON_OK), IMAGE_ICON, 16,16,0);
+
+
 
     return TRUE;
 }
@@ -516,7 +624,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     int wmId, wmEvent;
     PAINTSTRUCT ps;
     HDC hdc;
-
+	HWND hTarget;
+	int iRes=0;
     static SHACTIVATEINFO s_sai;
 	
     switch (message) 
@@ -576,8 +685,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				MessageBox(g_hWnd, L"Could not hook. Already running a copy of iHook3Keymap? Will exit now.", szAppName, MB_OK | MB_ICONEXCLAMATION);
 				PostQuitMessage(-1);
 			}
-
+			SetTimer(hWnd, 0x0815, 5000, NULL);
             break;
+		case WM_TIMER:
+			if(wParam==0x0815){
+				hTarget=getTargetWindow(&iRes);
+				DEBUGMSG(1,(L"Timer: getTargetWindow(), iRes=%i\n", iRes));
+				if(iRes==-1 || hTarget==NULL)
+					ChangeIcon(0); //BAD
+				else if (iRes==1)
+					ChangeIcon(1); //WARNING
+				else
+					ChangeIcon(2); //OK, win found and is foreground
+			}
+			break;
         case WM_PAINT:
             hdc = BeginPaint(hWnd, &ps);
             
@@ -603,6 +724,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
         case WM_DESTROY:
             CommandBar_Destroy(g_hWndMenuBar);
+			g_HookDeactivate();
+			RemoveIcon(hWnd);
+			MessageBeep(MB_OK);
             PostQuitMessage(0);
             break;
 

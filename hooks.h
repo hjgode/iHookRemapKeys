@@ -7,7 +7,7 @@
 #include <windows.h>
 #include <winuser.h>
 
-#define MYMSG_TASKBARNOTIFY  (WM_USER + 100)
+#define MYMSG_TASKBARNOTIFY  (WM_USER + 101)
 
 #define WH_MIN      				(-1)
 #define WH_MSGFILTER    		(-1)
