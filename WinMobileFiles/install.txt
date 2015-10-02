@@ -1,0 +1,9 @@
+Installation of iHookRemapKeys
+
+maps chars [ñ, ò, ó, ô, õ, ö, ÷, ø, ù, ú, û, ü ] to function keys [F1 to F12] for Remote Desktop Mobile
+
+Make a backup of \Windows\tscshift.txt and \Windows\tscscan.txt
+Copy tscshift.txt and tscscan.txt to \windows on device
+Copy iHookRemapKeys.exe to \windows on device
+Create a link to \Windows\iHookRemapKeys.exe inside \Windows\StartUp if iHookRemapKeys.exe should be started on every device start
+

@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="drawing.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;">
+      <path
+         id="path3949"
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4496927"
+     inkscape:cx="429.40713"
+     inkscape:cy="482.75307"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1714"
+     inkscape:window-height="820"
+     inkscape:window-x="75"
+     inkscape:window-y="75"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-308.2677)">
+    <g
+       id="g2989"
+       transform="translate(90.93812,442.48911)"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166">
+      <text
+         id="text2991"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#000000;font-family:Times New Roman"
+         y="21.001858"
+         x="0"
+         xml:space="preserve">0xF0 0x00 0</text>
+      <text
+         id="text2993"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#000000;font-family:Times New Roman"
+         y="21.001858"
+         x="75.900002"
+         xml:space="preserve"> </text>
+      <text
+         id="text2995"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="38.253384"
+         x="0"
+         xml:space="preserve">0xF1 0x70 0</text>
+      <text
+         id="text2997"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="38.253384"
+         x="75.900002"
+         xml:space="preserve"> </text>
+      <text
+         id="text2999"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="55.50491"
+         x="0"
+         xml:space="preserve">0xF2 0x71 0</text>
+      <text
+         id="text3001"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#000000;font-family:Times New Roman"
+         y="55.50491"
+         x="75.900002"
+         xml:space="preserve"> </text>
+    </g>
+    <g
+       id="g3018"
+       transform="translate(219.86784,528.18588)"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166">
+      <text
+         id="text3020"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#000000;font-family:Times New Roman"
+         y="20.996326"
+         x="0"
+         xml:space="preserve">0x00 0x00 // 0x6f </text>
+      <text
+         id="text3022"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#000000;font-family:Times New Roman"
+         y="20.996326"
+         x="111"
+         xml:space="preserve">-</text>
+      <text
+         id="text3024"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#000000;font-family:Times New Roman"
+         y="20.996326"
+         x="115.95"
+         xml:space="preserve"> </text>
+      <text
+         id="text3026"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#000000;font-family:Times New Roman"
+         y="20.996326"
+         x="119.7"
+         xml:space="preserve">VK_DIVIDE</text>
+      <text
+         id="text3028"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#000000;font-family:Times New Roman"
+         y="20.996326"
+         x="200.39999"
+         xml:space="preserve"> </text>
+      <text
+         id="text3030"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="38.243305"
+         x="0"
+         xml:space="preserve">0x3B 0x70 // 0x70 </text>
+      <text
+         id="text3032"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="38.243305"
+         x="115.95"
+         xml:space="preserve">-</text>
+      <text
+         id="text3034"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="38.243305"
+         x="120.9"
+         xml:space="preserve"> </text>
+      <text
+         id="text3036"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="38.243305"
+         x="124.65"
+         xml:space="preserve">VK_F1</text>
+      <text
+         id="text3038"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="38.243305"
+         x="169.64999"
+         xml:space="preserve"> </text>
+      <text
+         id="text3040"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="55.490288"
+         x="0"
+         xml:space="preserve">0x3C 0x71 // 0x71 </text>
+      <text
+         id="text3042"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="55.490288"
+         x="115.95"
+         xml:space="preserve">-</text>
+      <text
+         id="text3044"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="55.490288"
+         x="120.9"
+         xml:space="preserve"> </text>
+      <text
+         id="text3046"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="55.490288"
+         x="124.65"
+         xml:space="preserve">VK_F2</text>
+      <text
+         id="text3048"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="55.490288"
+         x="169.64999"
+         xml:space="preserve"> </text>
+      <text
+         id="text3050"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="72.737274"
+         x="0"
+         xml:space="preserve">0x3D 0x72 // 0x72 </text>
+      <text
+         id="text3052"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="72.737274"
+         x="116.85"
+         xml:space="preserve">-</text>
+      <text
+         id="text3054"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="72.737274"
+         x="121.8"
+         xml:space="preserve"> </text>
+      <text
+         id="text3056"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="72.737274"
+         x="125.55"
+         xml:space="preserve">VK_F3</text>
+      <text
+         id="text3058"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#00b050;font-family:Times New Roman"
+         y="72.737274"
+         x="170.55"
+         xml:space="preserve"> </text>
+      <text
+         id="text3060"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#000000;font-family:Times New Roman"
+         y="89.984253"
+         x="0"
+         xml:space="preserve"> </text>
+    </g>
+    <rect
+       style="fill:none;stroke:#0000ff;stroke-width:1.96325779;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3090"
+       width="33.837009"
+       height="20.040981"
+       x="122.76627"
+       y="483.25769"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166" />
+    <rect
+       style="fill:none;stroke:#0000ff;stroke-width:1.96325779;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3090-1"
+       width="33.837009"
+       height="20.040981"
+       x="254.17343"
+       y="569.13794"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166" />
+    <path
+       style="fill:none;stroke:#0000ff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend)"
+       d="m 156.58491,492.93327 112.43762,0 -0.6898,-0.6898 0,75.18835"
+       id="path3110"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166" />
+    <text
+       xml:space="preserve"
+       style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="283.50833"
+       y="384.63449"
+       id="text3118"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan3120"
+         x="283.50833"
+         y="384.63449"
+         style="font-size:16px">client key press of</tspan></text>
+    <g
+       id="g3126"
+       transform="matrix(2.2820434,0,0,1.7970173,29.83948,460.71696)"
+       style="fill:#008000"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166">
+      <text
+         id="text3128"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#008000;font-family:Times New Roman"
+         y="20.996155"
+         x="0"
+         xml:space="preserve">ò</text>
+      <text
+         id="text3130"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#008000;font-family:Times New Roman"
+         y="20.996155"
+         x="7.5"
+         xml:space="preserve"> </text>
+    </g>
+    <g
+       id="g3143"
+       transform="matrix(1.9298536,0,0,1.9298536,437.69007,344.77325)"
+       style="fill:#008000"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166">
+      <text
+         id="text3145"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#008000;font-family:Times New Roman"
+         y="20.996155"
+         x="0"
+         xml:space="preserve">ò</text>
+      <text
+         id="text3147"
+         style="font-size:15px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#008000;font-family:Times New Roman"
+         y="20.996155"
+         x="7.5"
+         xml:space="preserve"> </text>
+    </g>
+    <path
+       style="fill:#999999;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend)"
+       d="m 49.665699,492.24347 38.628877,0"
+       id="path4550"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166" />
+    <rect
+       style="fill:none;stroke:#999999;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect4734"
+       width="33.110466"
+       height="20.00424"
+       x="88.984383"
+       y="482.58624"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="89.674179"
+       y="423.95313"
+       id="text4736"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan4738"
+         x="89.674179"
+         y="423.95313">tscshift.txt</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="268.00269"
+       y="420.68625"
+       id="text4736-7"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan4738-4"
+         x="268.00269"
+         y="420.68625">tscscan.txt</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="29.661459"
+       y="31.529663"
+       id="text4761"
+       sodipodi:linespacing="125%"
+       transform="translate(0,308.2677)"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan4763"
+         x="29.661459"
+         y="31.529663"
+         style="font-size:18px">Remote Desktop Mobile (RDM) keyboard handling</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="489.89874"
+       y="417.11761"
+       id="text4736-7-0"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan4738-4-9"
+         x="489.89874"
+         y="417.11761">Terminal Server /Remote Desktopp Host</tspan></text>
+    <rect
+       style="fill:none;stroke:#ff0000;stroke-width:1.78323638;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect4786"
+       width="34.706833"
+       height="19.531202"
+       x="219.17905"
+       y="568.703"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166" />
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:0.96257603px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend)"
+       d="m 237.27296,587.41735 0,49.69997 257.39469,0.69028"
+       id="path4788"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="380.77036"
+       y="632.96295"
+       id="text4972"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan4974"
+         x="380.77036"
+         y="632.96295">scan code</tspan><tspan
+         sodipodi:role="line"
+         x="380.77036"
+         y="650.46295"
+         id="tspan5430">of F2 key</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="204.87102"
+       y="179.83696"
+       id="text4976"
+       sodipodi:linespacing="125%"
+       transform="translate(0,308.2677)"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan4978"
+         x="204.87102"
+         y="179.83696">lookup</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="79.327156"
+       y="521.90491"
+       id="text4980"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan4982"
+         x="79.327156"
+         y="521.90491">char</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="132.44186"
+       y="521.90491"
+       id="text4984"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan4986"
+         x="132.44186"
+         y="521.90491">vkey</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="256.70786"
+       y="615.20557"
+       id="text4984-4"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan4986-8"
+         x="256.70786"
+         y="615.20557">vkey</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="157.46825"
+       y="616.58984"
+       id="text4972-8"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan4974-2"
+         x="157.46825"
+         y="616.58984">scan code</tspan></text>
+    <path
+       style="fill:none;stroke:#b3b3b3;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:6, 1;stroke-dashoffset:0;marker-mid:none"
+       d="m 458.02811,418.43472 0,313.16982"
+       id="path5040"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="498.03659"
+       y="621.23633"
+       id="text5224"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan5226"
+         x="498.03659"
+         y="621.23633">KeyDown</tspan><tspan
+         sodipodi:role="line"
+         x="498.03659"
+         y="638.73633"
+         id="tspan5228">+KeyUp</tspan><tspan
+         sodipodi:role="line"
+         x="498.03659"
+         y="656.23633"
+         id="tspan5230">scancodes</tspan></text>
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:#b3b3b3;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:6, 1;stroke-dashoffset:0"
+       id="path5232"
+       sodipodi:cx="640.48059"
+       sodipodi:cy="325.04016"
+       sodipodi:rx="42.422783"
+       sodipodi:ry="42.422783"
+       d="m 682.90337,325.04016 a 42.422783,42.422783 0 1 1 -84.84556,0 42.422783,42.422783 0 1 1 84.84556,0 z"
+       transform="translate(0,308.2677)"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="608.40479"
+       y="628.82416"
+       id="text5234"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan5236"
+         x="608.40479"
+         y="628.82416">keyboard</tspan><tspan
+         sodipodi:role="line"
+         x="608.40479"
+         y="646.32416"
+         id="tspan5238">driver</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend)"
+       d="m 572.53514,328.14425 24.83285,0"
+       id="path5240"
+       inkscape:connector-curvature="0"
+       transform="translate(0,308.2677)"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.00603139px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 23.459297,392.22227 749.112193,0"
+       id="path5424"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="357.31711"
+       y="345.38928"
+       id="text5426"
+       sodipodi:linespacing="125%"
+       transform="translate(0,308.2677)"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan5428"
+         x="357.31711"
+         y="345.38928" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial Rounded MT Bold;-inkscape-font-specification:Arial Rounded MT Bold"
+       x="463.49481"
+       y="382.57077"
+       id="text3118-4"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166"><tspan
+         sodipodi:role="line"
+         id="tspan3120-5"
+         x="463.49481"
+         y="382.57077"
+         style="font-size:16px">gives F1 key press on host </tspan></text>
+    <rect
+       style="fill:none;stroke:#0000ff;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;stroke-linejoin:round"
+       id="rect5453"
+       width="787.75317"
+       height="402.84399"
+       x="7.5878153"
+       y="45.325691"
+       transform="translate(0,308.2677)"
+       inkscape:export-filename="D:\svn\git\iHookRemapKeys\DOC\g2989.png"
+       inkscape:export-xdpi="96.018166"
+       inkscape:export-ydpi="96.018166" />
+  </g>
+</svg>

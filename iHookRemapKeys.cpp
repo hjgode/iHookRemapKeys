@@ -6,6 +6,15 @@
 #include "hooks.h"
 #include "registry.h"
 
+//AFAIK RDM does NOT process any KEY_DOWN or KEY_UP messages for function keys!
+//currently only working for CHAR_ONLY with modified tscshift.txt and tscscan.txt
+
+//use 1 for EVENT and 0 for POST
+#define USE_POST_OR_EVENT 0
+//use char messages only
+#define USE_CHAR_ONLY
+//#undef USE_CHAR_ONLY
+
 EXTERN_C HWND GetForegroundKeyboardTarget();
 
 #pragma message( "Compiling " __FILE__ )
@@ -127,12 +136,6 @@ void WriteReg();
 
 #define myExtraInfo 0x0F	//mask
 #define myInjected  0x0F	//flag
-
-//use 1 for EVENT and 0 for POST
-#define USE_POST_OR_EVENT 0
-
-//use char messages only
-#define USE_CHAR_ONLY
 
 TCHAR* g_szMyEventDOWN = L"MyEventDOWN";
 TCHAR* g_szMyEventUP = L"MyEventUP";
@@ -286,7 +289,7 @@ __declspec(dllexport) LRESULT CALLBACK g_LLKeyboardHookCallback(
 		//we are only interested in FKey press/release
 		//if(pkbhData->vkCode >= VK_F1 && pkbhData->vkCode <=VK_F24){
 		//if(pkbhData->vkCode > 0 && pkbhData->vkCode < 255){ //vkCodes are only between 1 and 254
-		if(pkbhData->vkCode >= VK_F1 && pkbhData->vkCode <=VK_F20){	//map F1 to F20 to 
+		if(pkbhData->vkCode >= VK_F1 && pkbhData->vkCode <=VK_F12){	//map F1 to F20 to 
 			
 			DWORD newVKEY = g_myMap[pkbhData->vkCode-0x70].vkey;	//wParam
 			DWORD newCode = g_myMap[pkbhData->vkCode-0x70].scan;
@@ -297,10 +300,11 @@ __declspec(dllexport) LRESULT CALLBACK g_LLKeyboardHookCallback(
 				if (wParam == WM_KEYUP)
 				{
 					//synthesize a WM_KEYUP
-					DEBUGMSG(1,(L"posting WM_KEYUP 0x%08x to 0x%08x, lParam=0x%08x...\n", newVKEY, hwndTarget, lParam));
 					processed_key=true;
 #if USE_POST_OR_EVENT == 0
-					PostMessage(hwndTarget, WM_KEYUP, newVKEY, newLParam);
+					DEBUGMSG(1,(L"posting WM_KEYUP wParam=0x%08x to 0x%08x, lParam=0x%08x...\n", wParam, GetForegroundKeyboardTarget(), newLParam));
+					//PostMessage(GetForegroundKeyboardTarget(), WM_KEYUP, newVKEY, newLParam);	//remapped keys
+					PostMessage(GetForegroundKeyboardTarget(), WM_KEYUP, pkbhData->vkCode, newLParam);
 #else
 					//keybd_event will create another loop to here!!! Therefor set an event
 					DEBUGMSG(1,(L"+ SetEvent(g_hMyEventUP)\n"));
@@ -312,10 +316,11 @@ __declspec(dllexport) LRESULT CALLBACK g_LLKeyboardHookCallback(
 				else if (wParam == WM_KEYDOWN)
 				{
 					//synthesize a WM_KEYDOWN
-					DEBUGMSG(1,(L"posting WM_KEYDOWN 0x%08x to 0x%08x, lParam=0x%08x...\n", newVKEY, hwndTarget, lParam));
 					processed_key=true;
 #if USE_POST_OR_EVENT == 0
-					PostMessage(hwndTarget, WM_KEYDOWN, newVKEY, newLParam);
+					DEBUGMSG(1,(L"posting WM_KEYDOWN wParam=0x%08x to 0x%08x, lParam=0x%08x...\n", wParam, GetForegroundKeyboardTarget(), newLParam));
+					//PostMessage(GetForegroundKeyboardTarget, WM_KEYDOWN, newVKEY, newLParam);
+					PostMessage(GetForegroundKeyboardTarget(), WM_KEYDOWN, pkbhData->vkCode, newLParam);
 #else
 					SetEvent(g_hMyEventDOWN);
 					DEBUGMSG(1,(L"+ SetEvent(g_hMyEventDOWN)\n"));
