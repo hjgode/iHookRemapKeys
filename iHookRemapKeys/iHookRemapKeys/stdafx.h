@@ -23,8 +23,8 @@
 #include <windows.h>
 #include <commctrl.h>
 
-//#include <aygshell.h>
-//#pragma comment(lib, "aygshell.lib") 
+#include <aygshell.h>
+#pragma comment(lib, "aygshell.lib") 
 
 
 // Windows Header Files:
@@ -60,3 +60,5 @@
 #include <altcecrt.h>
 
 // TODO: reference additional headers your program requires here
+#include "hooks.h"
+

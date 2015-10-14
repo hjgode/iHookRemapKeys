@@ -10,10 +10,11 @@
 #define IDS_HELP                        104
 #define IDD_ABOUTBOX                    105
 #define IDD_ABOUTBOX_WIDE               106
-#define IHOOK_STARTED                   129
-#define IDI_ICON_OK                     133
-#define IDI_ICON_BAD                    134
-#define IDI_ICON_WARN                   135
+#define IDI_ICON_OK                     129
+#define IDI_ICON_WARN                   130
+#define IDI_ICON3                       131
+#define IHOOK_STARTED                   131
+#define IDI_ICON_BAD                    132
 #define IDC_STATIC_1                    201
 #define IDC_STATIC_2                    202
 #define IDC_STATIC_3                    203
@@ -27,7 +28,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
-#define _APS_NEXT_RESOURCE_VALUE        129
+#define _APS_NEXT_RESOURCE_VALUE        133
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           110

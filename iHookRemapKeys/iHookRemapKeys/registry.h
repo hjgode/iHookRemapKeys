@@ -1,4 +1,8 @@
 //registry.h
+
+#ifndef _REGISTRY_H_
+#define _REGISTRY_H_
+
 #pragma warning (disable:4996)
 //Create, write and read registry keys and values
 
@@ -312,3 +316,4 @@ int IsIntermec(void)
 		return -1;
 	*/
 }
+#endif //_REGISTRY_H_

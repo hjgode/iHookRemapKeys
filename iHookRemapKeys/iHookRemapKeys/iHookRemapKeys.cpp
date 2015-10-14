@@ -3,33 +3,21 @@
 
 #include "stdafx.h"
 #include "iHookRemapKeys.h"
-#include "hooks.h"
 #include "registry.h"
 
-//AFAIK RDM does NOT process any KEY_DOWN or KEY_UP messages for function keys!
-//currently only working for CHAR_ONLY with modified tscshift.txt and tscscan.txt
-
-//use 1 for EVENT and 0 for POST
-#define USE_POST_OR_EVENT 0
-//use char messages only
-#define USE_CHAR_ONLY
-//#undef USE_CHAR_ONLY
-
-EXTERN_C HWND GetForegroundKeyboardTarget();
-
-#pragma message( "Compiling " __FILE__ )
-
-TCHAR szAppName[] = L"iHookRemapKeys_v0.0.2";
-#pragma comment (user, "iHookRemapKeys_v0.0.2 (c)hjgode 2016" __TIME__)
-
-#define MAX_LOADSTRING 100
-
-// Global Variables:
-HINSTANCE			g_hInst;			// current instance
-HWND				g_hWndMenuBar;		// menu bar handle
+//##############################################
+NOTIFYICONDATA nid;
+//
+HICON g_hIcon[3];
+void ShowIcon(HWND hWnd, HINSTANCE hInst);
+void RemoveIcon(HWND hWnd);
+void ChangeIcon(int idIcon);
 HWND				g_hWnd;				// main window handle
+TCHAR g_TargetWinClass[MAX_PATH]; // L"TSSHELLWND"
+TCHAR g_TargetWinText[MAX_PATH];  // NULL
 
-HINSTANCE	g_hHookApiDLL	= NULL;			// Handle to loaded library (system DLL where the API is located)
+TCHAR szAppName[] = L"iHookRemapKeys_v0.0.3";
+#pragma comment (user, "iHookRemapKeys_v0.0.3 (c)hjgode 2016" __TIME__)
 
 TCHAR* regMainKey = L"SOFTWARE\\Intermec\\iHook3Keymap";
 TCHAR* regKeys = L"SOFTWARE\\Intermec\\iHook3Keymap\\keys";
@@ -46,8 +34,9 @@ TCHAR* regKeys = L"SOFTWARE\\Intermec\\iHook3Keymap\\keys";
 			"115"=hex:F4
 */
 
-TCHAR g_TargetWinClass[MAX_PATH]; // L"TSSHELLWND"
-TCHAR g_TargetWinText[MAX_PATH];  // NULL
+EXTERN_C HWND GetForegroundKeyboardTarget(); //undocumented win API
+
+HINSTANCE	g_hHookApiDLL	= NULL;			// Handle to loaded library (system DLL where the API is located)
 
 typedef struct {
 	DWORD vkey;
@@ -103,49 +92,28 @@ byte charMap[]={
 	0xF1,	//	0x70 -> 241 */
 };
 
-//global to hold keycodes and there replacements
-typedef struct {
-	byte VKkeyCodeIn;
-	byte VKkeyCodeOut;
-} hookmap;
-static hookmap kMap[24];
-
-NOTIFYICONDATA nid;
-//
-HICON g_hIcon[3];
-void ShowIcon(HWND hWnd, HINSTANCE hInst);
-void RemoveIcon(HWND hWnd);
-void ChangeIcon(int idIcon);
-
-// Forward declarations of functions included in this code module:
-ATOM			MyRegisterClass(HINSTANCE, LPTSTR);
-BOOL			InitInstance(HINSTANCE, int);
-LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
-INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
-
-int ReadReg();
-void WriteReg();
-
-#ifndef LLKHF_LOWER_IL_INJECTED
-	//#define LLKHF_EXTENDED (KF_EXTENDED>>8)
-	#define LLKHF_LOWER_IL_INJECTED 0x0002
-	#define LLKHF_INJECTED 0x00000010
-	//#define LLKHF_ALTDOWN (KF_ALTDOWN>>8)
-	//#define LLKHF_UP (KF_UP>>8)
-#endif
-
-#define myExtraInfo 0x0F	//mask
-#define myInjected  0x0F	//flag
-
-TCHAR* g_szMyEventDOWN = L"MyEventDOWN";
-TCHAR* g_szMyEventUP = L"MyEventUP";
-HANDLE g_hMyEventDOWN = NULL;
-HANDLE g_hMyEventUP = NULL;
-HANDLE g_hmyEvents[2];
-
-// Global functions: The original Open Source
-BOOL g_HookDeactivate();
-BOOL g_HookActivate(HINSTANCE hInstance);
+HWND getTargetWindow(int *result){
+//	return GetActiveWindow();
+	*result=0;
+	HWND hwndTarget=NULL;
+	if(wcslen(g_TargetWinClass)>0 && wcslen(g_TargetWinText)>0)
+		hwndTarget = FindWindow(g_TargetWinClass, g_TargetWinText); 
+	else if (wcslen(g_TargetWinClass)>0 && wcslen(g_TargetWinText)==0)
+		hwndTarget = FindWindow(g_TargetWinClass, NULL);
+	else if (wcslen(g_TargetWinClass)==0 && wcslen(g_TargetWinText)>0)
+		hwndTarget = FindWindow(NULL, g_TargetWinText); 
+	else{
+		*result=-1; //no Class and no Text?
+		return NULL;
+	}
+	HWND hwndForeground = GetForegroundWindow();
+	if(hwndForeground!=hwndTarget){
+		*result=1;
+		return NULL;
+	}
+	*result=2;
+	return hwndTarget;// GetForegroundWindow();
+}
 
 void Add2Log(TCHAR* msg, ...){
 	;
@@ -181,28 +149,9 @@ void RemoveIcon(HWND hWnd)
 
 }
 
-HWND getTargetWindow(int *result){
-//	return GetActiveWindow();
-	*result=0;
-	HWND hwndTarget=NULL;
-	if(wcslen(g_TargetWinClass)>0 && wcslen(g_TargetWinText)>0)
-		hwndTarget = FindWindow(g_TargetWinClass, g_TargetWinText); 
-	else if (wcslen(g_TargetWinClass)>0 && wcslen(g_TargetWinText)==0)
-		hwndTarget = FindWindow(g_TargetWinClass, NULL);
-	else if (wcslen(g_TargetWinClass)==0 && wcslen(g_TargetWinText)>0)
-		hwndTarget = FindWindow(NULL, g_TargetWinText); 
-	else{
-		*result=-1; //no Class and no Text?
-		return NULL;
-	}
-	HWND hwndForeground = GetForegroundWindow();
-	if(hwndForeground!=hwndTarget){
-		*result=1;
-		return NULL;
-	}
-	*result=2;
-	return hwndTarget;// GetForegroundWindow();
-}
+// Global functions: The original Open Source
+BOOL g_HookDeactivate();
+BOOL g_HookActivate(HINSTANCE hInstance);
 
 //
 #pragma data_seg(".HOOKDATA")									//	Shared data (memory) among all instances.
@@ -239,31 +188,7 @@ __declspec(dllexport) LRESULT CALLBACK g_LLKeyboardHookCallback(
 			DEBUGMSG(1,(L"Target window not found of not Foreground!\n"));
 			return CallNextHookEx(g_hInstalledLLKBDhook, nCode, wParam, lParam);
 		}
-#if USE_POST_OR_EVENT == 1
-		//is an event set, then do not process again!
-		DWORD dwWait = WaitForMultipleObjects(2, g_hmyEvents, false, 0);
-		switch (dwWait){
-			case WAIT_OBJECT_0://down
-				ResetEvent(g_hMyEventDOWN);
-				//DEBUGMSG(1, (L"g_hMyEventDOWN: self created event, do not process\n"));
-				DEBUGMSG(1,(L"- SetEvent(g_hMyEventDOWN)\n"));
-				return TRUE; //no further processing
-				break;
-			case WAIT_OBJECT_0+1://up
-				ResetEvent(g_hMyEventUP);
-				DEBUGMSG(1,(L"- SetEvent(g_hMyEventUP)\n"));
-				//DEBUGMSG(1, (L"g_hMyEventUP: self created event, do not process\n"));
-				return TRUE; //no further processing
-				break;
-			case WAIT_TIMEOUT:
-				DEBUGMSG(1, (L"WAIT_TIMEOUT: self created event\n"));
-				break;
-			default:
-				break;
-		}
-#endif
 		//################## CHAR ONLY START ################
-#ifdef USE_CHAR_ONLY
 		if(pkbhData->vkCode >= VK_F1 && pkbhData->vkCode <=VK_F12){	//map F1 to F12 to 
 			
 			DWORD newVKEY = g_myMap[pkbhData->vkCode-0x70].vkey;	//wParam
@@ -284,50 +209,6 @@ __declspec(dllexport) LRESULT CALLBACK g_LLKeyboardHookCallback(
 					//synthesize a WM_KEYDOWN
 					DEBUGMSG(1,(L"ignoring WM_KEYDOWN 0x%08x to 0x%08x, lParam=0x%08x...\n", charMap[pkbhData->vkCode-0x70], hwndTarget, lParam));
 					processed_key=true;
-#else
-
-		//we are only interested in FKey press/release
-		//if(pkbhData->vkCode >= VK_F1 && pkbhData->vkCode <=VK_F24){
-		//if(pkbhData->vkCode > 0 && pkbhData->vkCode < 255){ //vkCodes are only between 1 and 254
-		if(pkbhData->vkCode >= VK_F1 && pkbhData->vkCode <=VK_F12){	//map F1 to F20 to 
-			
-			DWORD newVKEY = g_myMap[pkbhData->vkCode-0x70].vkey;	//wParam
-			DWORD newCode = g_myMap[pkbhData->vkCode-0x70].scan;
-			DWORD newLParam = (lParam & 0xFF00FFFF)| g_myMap[pkbhData->vkCode-0x70].scan; //mask scancode and set new one
-
-			DEBUGMSG(1,(L"hook for key 0x%08x mapped to 0x%08x...\n", pkbhData->vkCode, newVKEY));
-			if(processed_key==false){
-				if (wParam == WM_KEYUP)
-				{
-					//synthesize a WM_KEYUP
-					processed_key=true;
-#if USE_POST_OR_EVENT == 0
-					DEBUGMSG(1,(L"posting WM_KEYUP wParam=0x%08x to 0x%08x, lParam=0x%08x...\n", wParam, GetForegroundKeyboardTarget(), newLParam));
-					//PostMessage(GetForegroundKeyboardTarget(), WM_KEYUP, newVKEY, newLParam);	//remapped keys
-					PostMessage(GetForegroundKeyboardTarget(), WM_KEYUP, pkbhData->vkCode, newLParam);
-#else
-					//keybd_event will create another loop to here!!! Therefor set an event
-					DEBUGMSG(1,(L"+ SetEvent(g_hMyEventUP)\n"));
-					SetEvent(g_hMyEventUP);
-					keybd_event(newVKEY, newCode, pkbhData->flags, pkbhData->dwExtraInfo);
-					//flags are KEYEVENTF_EXTENDEDKEY or KEYEVENTF_KEYUP 
-#endif
-				}
-				else if (wParam == WM_KEYDOWN)
-				{
-					//synthesize a WM_KEYDOWN
-					processed_key=true;
-#if USE_POST_OR_EVENT == 0
-					DEBUGMSG(1,(L"posting WM_KEYDOWN wParam=0x%08x to 0x%08x, lParam=0x%08x...\n", wParam, GetForegroundKeyboardTarget(), newLParam));
-					//PostMessage(GetForegroundKeyboardTarget, WM_KEYDOWN, newVKEY, newLParam);
-					PostMessage(GetForegroundKeyboardTarget(), WM_KEYDOWN, pkbhData->vkCode, newLParam);
-#else
-					SetEvent(g_hMyEventDOWN);
-					DEBUGMSG(1,(L"+ SetEvent(g_hMyEventDOWN)\n"));
-					keybd_event(newVKEY, newCode, pkbhData->flags, pkbhData->dwExtraInfo);
-					//flags are KEYEVENTF_EXTENDEDKEY or KEYEVENTF_KEYUP 
-#endif
-#endif //USE_CHAR_ONLY
 
 				}
 				else if (wParam == WM_CHAR)	//this will never happen
@@ -425,11 +306,12 @@ BOOL g_HookActivate(HINSTANCE hInstance)
 			return false;
 	}
 	//DEBUGMSG(1, (_T("OK\nEverything loaded OK\n"));
+/*	
 	g_hMyEventDOWN=CreateEvent(NULL, TRUE, FALSE, g_szMyEventDOWN);
 	g_hMyEventUP=CreateEvent(NULL, TRUE, FALSE, g_szMyEventUP);
 	g_hmyEvents[0]=g_hMyEventDOWN;
 	g_hmyEvents[1]=g_hMyEventUP;
-
+*/
 	return true;
 }
 
@@ -461,20 +343,33 @@ void readReg(){
 void writeReg(){
 }
 
+
+//##############################################
+
+#define MAX_LOADSTRING 100
+
+// Global Variables:
+HINSTANCE			g_hInst;			// current instance
+HWND				g_hWndMenuBar;		// menu bar handle
+
+// Forward declarations of functions included in this code module:
+ATOM			MyRegisterClass(HINSTANCE, LPTSTR);
+BOOL			InitInstance(HINSTANCE, int);
+LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
+INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
+
 int WINAPI WinMain(HINSTANCE hInstance,
                    HINSTANCE hPrevInstance,
                    LPTSTR    lpCmdLine,
                    int       nCmdShow)
 {
 	MSG msg;
-	
-	readReg(); //read globals
+
 	// Perform application initialization:
 	if (!InitInstance(hInstance, nCmdShow)) 
 	{
 		return FALSE;
 	}
-
 
 	HACCEL hAccelTable;
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_IHOOKREMAPKEYS));
@@ -565,6 +460,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     {
         return FALSE;
     }
+	
+	g_hWnd=hWnd;
 
     // When the main window is created using CW_USEDEFAULT the height of the menubar (if one
     // is created is not taken into account). So we resize the window after creating it
@@ -581,8 +478,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
         MoveWindow(hWnd, rc.left, rc.top, rc.right-rc.left, rc.bottom-rc.top, FALSE);
     }
 
-    //ShowWindow(hWnd, nCmdShow);
-	ShowWindow(hWnd, SW_MINIMIZE);
+    ShowWindow(hWnd, SW_MINIMIZE);//nCmdShow);
     UpdateWindow(hWnd);
 
 	//Notification icon
@@ -598,6 +494,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	nid.hIcon = hIcon;
 	nid.szTip[0] = '\0';
 	BOOL res = Shell_NotifyIcon (NIM_ADD, &nid);
+
 	if(!res){
 		DEBUGMSG(1 ,(L"Could not add taskbar icon. LastError=%i\r\n", GetLastError() ));
 		Add2Log(L"Could not add taskbar icon. LastError=%i (0x%x)\r\n", GetLastError(), GetLastError());
@@ -608,8 +505,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	g_hIcon[0] =(HICON) LoadImage (g_hInst, MAKEINTRESOURCE (IDI_ICON_BAD), IMAGE_ICON, 16,16,0);
 	g_hIcon[1] =(HICON) LoadImage (g_hInst, MAKEINTRESOURCE (IDI_ICON_WARN), IMAGE_ICON, 16,16,0);
 	g_hIcon[2] =(HICON) LoadImage (g_hInst, MAKEINTRESOURCE (IDI_ICON_OK), IMAGE_ICON, 16,16,0);
-
-
 
     return TRUE;
 }
@@ -631,6 +526,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     HDC hdc;
 	HWND hTarget;
 	int iRes=0;
+
     static SHACTIVATEINFO s_sai;
 	
     switch (message) 
@@ -652,22 +548,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
             break;
         case WM_CREATE:
-            SHMENUBARINFO mbi;
+            //SHMENUBARINFO mbi;
 
-            memset(&mbi, 0, sizeof(SHMENUBARINFO));
-            mbi.cbSize     = sizeof(SHMENUBARINFO);
-            mbi.hwndParent = hWnd;
-            mbi.nToolBarId = IDR_MENU;
-            mbi.hInstRes   = g_hInst;
+            //memset(&mbi, 0, sizeof(SHMENUBARINFO));
+            //mbi.cbSize     = sizeof(SHMENUBARINFO);
+            //mbi.hwndParent = hWnd;
+            //mbi.nToolBarId = IDR_MENU;
+            //mbi.hInstRes   = g_hInst;
 
-            if (!SHCreateMenuBar(&mbi)) 
-            {
-                g_hWndMenuBar = NULL;
-            }
-            else
-            {
-                g_hWndMenuBar = mbi.hwndMB;
-            }
+            //if (!SHCreateMenuBar(&mbi)) 
+            //{
+            //    g_hWndMenuBar = NULL;
+            //}
+            //else
+            //{
+            //    g_hWndMenuBar = mbi.hwndMB;
+            //}
 
             // Initialize the shell activate info structure
             memset(&s_sai, 0, sizeof (s_sai));

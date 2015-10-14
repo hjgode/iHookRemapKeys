@@ -1,10 +1,3 @@
-##{{NSIS_PLUS_BEGIN_PROJECT_SETTINGS}}##
-#NAME "Release"
-#	CMD 
-#	EXE \TOOLS\NSIS\makensis.exe
-#	FLAGS 2
-##{{NSIS_PLUS_END_PROJECT_SETTINGS}}##
-
 ############################################################################################
 #      NSIS Installation Script created by NSIS Quick Setup Script Generator v1.09.18
 #               Entirely Edited with NullSoft Scriptable Installation System                
@@ -14,7 +7,7 @@
 !define APP_NAME "iHookRemapKeys"
 !define COMP_NAME "HSM"
 !define WEB_SITE "http://www.honeywell.com"
-!define VERSION "00.00.02.00"
+!define VERSION "00.00.03.00"
 !define COPYRIGHT "hjgode  © 2016"
 !define DESCRIPTION "Tool"
 !define LICENSE_TXT "D:\Intermec\Honeywell\HSM EULA.txt"
@@ -170,7 +163,6 @@ DeleteRegKey ${REG_ROOT} "${UNINSTALL_PATH}"
 SectionEnd
 
 ######################################################################
-
 
 Function .onInstSuccess
     MessageBox MB_YESNO "Congrats, it worked. View install.txt in $INSTDIR?" IDNO NoReadme

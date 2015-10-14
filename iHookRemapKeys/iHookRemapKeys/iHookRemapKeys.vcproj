@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="iHookRemapKeys"
-	ProjectGUID="{20225AF2-EBBF-497F-B040-586C3F69BEDC}"
+	ProjectGUID="{F0119011-D5D1-4BA7-95D3-5E45C5D75D14}"
 	RootNamespace="iHookRemapKeys"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
@@ -95,7 +95,7 @@
 			/>
 			<DeploymentTool
 				ForceDirty="-1"
-				RemoteDirectory="\"
+				RemoteDirectory=""
 				RegisterOutput="0"
 				AdditionalFiles=""
 			/>
@@ -278,6 +278,20 @@
 			<File
 				RelativePath=".\iHookRemapKeysppc.rc"
 				>
+				<FileConfiguration
+					Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\iHookRemapKeysppc.rc2"
