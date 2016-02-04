@@ -1,0 +1,58 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\Software\Intermec\iHook3Keymap]
+"TargetWinText"=""
+"TargetWinClass"="TSSHELLWND"
+
+[HKEY_LOCAL_MACHINE\Software\Intermec\iHook3Keymap\keys]
+"F25"=hex:\
+      99
+"F24"=hex:\
+      98
+"F23"=hex:\
+      97
+"F22"=hex:\
+      96
+"F21"=hex:\
+      95
+"F20"=hex:\
+      94
+"F19"=hex:\
+      93
+"F18"=hex:\
+      92
+"F17"=hex:\
+      91
+"F16"=hex:\
+      90
+"F15"=hex:\
+      8F
+"F14"=hex:\
+      8E
+"F13"=hex:\
+      8D
+"F12"=hex:\
+      8C
+"F11"=hex:\
+      8B
+"F10"=hex:\
+      8A
+"F9"=hex:\
+      89
+"F8"=hex:\
+      88
+"F7"=hex:\
+      87
+"F6"=hex:\
+      86
+"F5"=hex:\
+      85
+"F4"=hex:\
+      84
+"F3"=hex:\
+      83
+"F2"=hex:\
+      82
+"F1"=hex:\
+      81
+

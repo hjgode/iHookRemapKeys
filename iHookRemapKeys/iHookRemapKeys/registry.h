@@ -15,6 +15,7 @@ int OpenKey();
 int OpenKey(TCHAR *subkey);
 int OpenCreateKey(TCHAR *subkey);
 int CloseKey();
+DWORD RegGetType(TCHAR *valuename);
 int CreateSubKey(TCHAR *subkey);
 int RegReadDword(TCHAR *valuename, DWORD value);
 int RegReadStr(TCHAR *valuename, TCHAR *value);
@@ -26,6 +27,19 @@ int RegWriteByte(TCHAR *valuename, byte value);
 void ShowError(LONG er);
 
 int IsIntermec(void);
+
+DWORD RegGetType(TCHAR *valuename){
+	LONG rc=0;
+	if (g_hkey==NULL)
+		rc = OpenKey();
+	DWORD dwType=-1;
+	if(RegQueryValueEx(g_hkey, valuename, NULL, &dwType, NULL, NULL)==ERROR_SUCCESS)
+		return dwType;
+	else{
+		DEBUGMSG(1, (L"error in RegGetType(): %i\n",GetLastError()));
+		return -1;
+	}
+}
 
 int RegWriteDword(TCHAR *valuename, DWORD value)
 {
@@ -92,7 +106,7 @@ int RegReadByte(TCHAR *valuename, byte *value)
 			return rc;
 		}
 	}
-	CloseKey();
+//	CloseKey();
 	return rc;
 }
 
@@ -116,7 +130,7 @@ int RegReadDword(TCHAR *valuename, DWORD value)
 			return rc;
 		}
 	}
-	CloseKey();
+//	CloseKey();
 	return rc;
 }
 
@@ -135,7 +149,7 @@ int RegReadStr(TCHAR *valuename, TCHAR *value)
 			rc = RegQueryValueEx(g_hkey, valuename, NULL, &dwType, (LPBYTE)szStr, &dwSize);
 			if (rc == ERROR_SUCCESS)
 			{
-				CloseKey();
+//				CloseKey();
 				wcscpy(value, szStr);
 				return 0;
 			}
@@ -148,14 +162,14 @@ int RegReadStr(TCHAR *valuename, TCHAR *value)
 		rc = RegQueryValueEx(g_hkey, valuename, NULL, &dwType, (LPBYTE)szStr, &dwSize);
 		if (rc == ERROR_SUCCESS)
 		{
-			CloseKey();
+//			CloseKey();
 			wcscpy(value, szStr);
 			return 0;
 		}
 	}
 
 	wcscpy(value, L"");
-	CloseKey();
+//	CloseKey();
 	return -1;
 }
 
